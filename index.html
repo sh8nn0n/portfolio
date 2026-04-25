@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shannon Wu — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f2eb;
+    --bg2: #ede9df;
+    --surface: #f9f7f2;
+    --border: #cdc9b8;
+    --olive: #5c6b2e;
+    --olive-dark: #3d4a1a;
+    --olive-mid: #7a8c3a;
+    --olive-light: #b5c074;
+    --olive-pale: #dde4c0;
+    --moss: #4a5c2a;
+    --sage: #8fa86e;
+    --cream: #f5f2eb;
+    --bark: #6b5c3e;
+    --text: #2a2e1a;
+    --muted: #6b7050;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(245,242,235,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--olive-dark);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--olive); }
+
+  /* SVG leaf decorations */
+  .leaf-deco {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.18;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+    gap: 4rem;
+  }
+
+  .hero-left {}
+
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--sage);
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(56px, 7vw, 96px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: var(--olive-dark);
+    margin-bottom: 2rem;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--olive-mid);
+  }
+
+  .hero-tagline {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 380px;
+    margin-bottom: 3rem;
+    border-left: 2px solid var(--olive-pale);
+    padding-left: 1.5rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--olive);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 50px;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--olive-dark);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--olive);
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 50px;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--olive);
+    color: var(--olive-dark);
+  }
+
+  .hero-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-botanical {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  /* DIVIDER */
+  .organic-divider {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    background: var(--bg);
+  }
+
+  /* ABOUT */
+  .about-section {
+    background: var(--bg2);
+    padding: 8rem 4rem;
+  }
+
+  .about-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .section-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--sage);
+    display: block;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--olive-dark);
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--olive-mid);
+  }
+
+  .about-body p {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-body p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .interest-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+
+  .chip {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 1rem;
+    background: var(--olive-pale);
+    color: var(--olive-dark);
+    border-radius: 50px;
+    border: 1px solid var(--olive-light);
+    transition: background 0.2s;
+  }
+
+  .chip:hover {
+    background: var(--olive-light);
+  }
+
+  /* PROJECTS */
+  .projects-section {
+    padding: 8rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .projects-header {
+    margin-bottom: 5rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+    cursor: pointer;
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--olive-light);
+  }
+
+  .project-card-top {
+    height: 180px;
+    background: var(--olive-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .project-card-top.moss-bg { background: #c8d9a0; }
+  .project-card-top.bark-bg { background: #d9cdb5; }
+  .project-card-top.sage-bg { background: #ccdbbe; }
+
+  .project-card-body {
+    padding: 1.5rem;
+  }
+
+  .project-num {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.75rem;
+  }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--olive-dark);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-desc {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-tag {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.7rem;
+    background: var(--olive-pale);
+    color: var(--olive-dark);
+    border-radius: 50px;
+    border: 1px solid var(--border);
+  }
+
+  .project-link {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--olive);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.2s, color 0.2s;
+  }
+
+  .project-card:hover .project-link {
+    gap: 0.85rem;
+    color: var(--olive-dark);
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--olive-dark);
+    padding: 8rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--olive-light);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .contact-label::before, .contact-label::after {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--olive-light);
+    display: block;
+  }
+
+  .contact-title {
+    font-family: var(--serif);
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-title em {
+    font-style: italic;
+    color: var(--olive-light);
+  }
+
+  .contact-sub {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--olive-pale);
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 50px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .contact-link:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  .contact-link.primary-link {
+    background: var(--olive-light);
+    color: var(--olive-dark);
+    border-color: var(--olive-light);
+    font-weight: 500;
+  }
+
+  .contact-link.primary-link:hover {
+    background: var(--olive-pale);
+  }
+
+  footer {
+    background: var(--olive-dark);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .footer-copy {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--olive-light);
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+  }
+
+  .footer-tagline {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--olive-light);
+    opacity: 0.6;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .hero-eyebrow { animation: fadeUp 0.7s ease 0.1s both; }
+  .hero-name    { animation: fadeUp 0.7s ease 0.25s both; }
+  .hero-tagline { animation: fadeUp 0.7s ease 0.4s both; }
+  .hero-ctas    { animation: fadeUp 0.7s ease 0.55s both; }
+  .hero-right   { animation: fadeIn 1s ease 0.4s both; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; }
+    .hero-right { display: none; }
+    .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .about-section, .projects-section, .contact-section { padding: 5rem 1.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <!-- ✏️ Change the logo text if you like -->
+  <div class="nav-logo">Shannon Wu</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="Shannon Wu Resume.docx (1).pdf" target="_blank">Resume</a></li>
+        
+
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <!-- ✏️ Change your status/eyebrow line -->
+    <div class="hero-eyebrow">Researcher &amp; Designer</div>
+    <!-- ✏️ Your name — keep the <em> tag on the last name for the italic style -->
+    <h1 class="hero-name">Shannon<br><em>Wu</em></h1>
+    <!-- ✏️ Your tagline -->
+    <p class="hero-tagline">
+      Just a kid who's interested in mother nature.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#about" class="btn-ghost">About Me</a>
+    </div>
+  </div>
+  <div class="hero-right">
+   
+   
+    <!-- Botanical SVG illustration -->
+    <svg class="hero-botanical" viewBox="0 0 420 480" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <!-- Main stem -->
+      <path d="M210 460 C210 380 195 320 185 260 C175 200 180 150 190 100" stroke="#5c6b2e" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Large left leaf -->
+      <path d="M190 280 C150 240 100 230 80 200 C110 195 155 210 185 250 Z" fill="#7a8c3a" opacity="0.7"/>
+      <path d="M190 280 C165 260 140 242 80 200" stroke="#5c6b2e" stroke-width="1" opacity="0.5"/>
+      <!-- Left leaf veins -->
+      <path d="M165 265 C145 252 120 240 95 215" stroke="#5c6b2e" stroke-width="0.7" opacity="0.4"/>
+      <path d="M150 258 C135 248 115 238 90 220" stroke="#5c6b2e" stroke-width="0.7" opacity="0.3"/>
+      <!-- Large right leaf -->
+      <path d="M188 220 C220 180 270 165 300 140 C280 160 240 178 193 215 Z" fill="#b5c074" opacity="0.6"/>
+      <path d="M188 220 C220 185 265 168 300 140" stroke="#5c6b2e" stroke-width="1" opacity="0.4"/>
+      <!-- Mid left leaf -->
+      <path d="M192 180 C155 155 120 145 95 125 C125 120 165 138 190 170 Z" fill="#5c6b2e" opacity="0.5"/>
+      <!-- Small right sprout -->
+      <path d="M191 140 C210 115 235 105 255 90 C235 108 215 118 191 138 Z" fill="#7a8c3a" opacity="0.6"/>
+      <!-- Top bud -->
+      <path d="M190 100 C185 82 188 68 192 55 C196 68 198 82 193 98 Z" fill="#b5c074" opacity="0.8"/>
+      <!-- Small decorative leaves bottom -->
+      <path d="M205 380 C225 365 248 362 262 350 C245 360 225 368 207 378 Z" fill="#8fa86e" opacity="0.5"/>
+      <path d="M208 350 C188 338 170 337 158 326 C172 330 190 337 210 348 Z" fill="#7a8c3a" opacity="0.45"/>
+      <!-- Tiny floating leaves -->
+      <path d="M320 300 C330 288 345 285 352 278 C344 284 331 291 322 299 Z" fill="#b5c074" opacity="0.4"/>
+      <path d="M60 310 C50 298 38 295 30 285 C38 291 51 298 62 308 Z" fill="#8fa86e" opacity="0.35"/>
+      <path d="M340 180 C350 168 364 166 372 158 C363 165 350 170 341 180 Z" fill="#5c6b2e" opacity="0.3"/>
+      <!-- Soft circle bg -->
+      <circle cx="210" cy="240" r="170" stroke="#b5c074" stroke-width="1" opacity="0.2" stroke-dasharray="4 8"/>
+    </svg>  
+ 
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="about-section">
+  <div class="about-inner">
+    <div>
+      <div class="section-label">About</div>
+      <h2 class="section-title">Inspired by<br><em>nature's logic</em></h2>
+      
+      <div class="about-image" style="margin-top: 2.5rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+        <img src="shannon profile.png" alt="Shannon Wu" style="width: 100%; height: auto; display: block; filter: grayscale(10%) contrast(95%);">
+      </div>
+    </div>
+    
+    <div class="about-body">
+      <p>
+            Welcome! I'm a high school student fascinated by the intelligence embedded in living systems. I'm interested in biomimicry, sustainable design, and soft robotics — asking what 3.8 billion years of evolution can teach us about building a better world.
+      </p>
+      <p>
+        I believe the most elegant solutions already exist in nature; we just need to spend the time to find them.
+      </p>
+      
+      <div class="interest-chips">
+        <span class="chip">Biomimicry</span>
+        <span class="chip">Soft robotics</span>
+        <span class="chip">Mycelial networks</span>
+        <span class="chip">Sustainable materials</span>
+        <span class="chip">Green architecture</span>
+        <span class="chip">Lichen</span>
+        <span class="chip">Bio-inspired sound systems</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<div class="projects-section" id="projects">
+  <div class="projects-header">
+    <h2 class="section-title">My <em>Projects</em></h2>
+  </div>
+  <div class="projects-grid">
+
+    <!-- ✏️ PROJECT 1 — edit title, description, tags, link -->
+    <div class="project-card">
+      <div class="project-card-top moss-bg">
+        <svg viewBox="0 0 200 160" width="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 140 C100 100 90 75 85 50 C80 25 85 12 90 5" stroke="#3d4a1a" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+          <path d="M88 90 C65 72 45 68 30 55 C52 50 75 64 87 85 Z" fill="#5c6b2e" opacity="0.6"/>
+          <path d="M87 65 C108 48 128 44 145 32 C128 48 110 54 88 63 Z" fill="#7a8c3a" opacity="0.7"/>
+          <path d="M90 42 C78 30 66 28 55 20 C67 22 80 30 91 40 Z" fill="#3d4a1a" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-num">01 / Research</div>
+        <h3 class="project-title">Pomelo fruit-inspired noise absorber</h3>
+        <p class="project-desc">Mimicking the structure of a pomelo fruit peel to create a passive noise absorber</p>
+        <div class="project-tags">
+          <span class="project-tag">Biomimicry</span>
+          <span class="project-tag">Sound</span>
+          <span class="project-tag">Systems</span>
+        </div>
+        <a href="pomelo.html" class="project-link">View project →</a>
+      </div>
+    </div>
+
+    <!-- ✏️ PROJECT 2 -->
+    <div class="project-card">
+      <div class="project-card-top bark-bg">
+        <svg viewBox="0 0 200 160" width="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="80" r="50" stroke="#5c6b2e" stroke-width="1.5" opacity="0.4"/>
+          <circle cx="100" cy="80" r="35" stroke="#5c6b2e" stroke-width="1.5" opacity="0.35"/>
+          <circle cx="100" cy="80" r="20" stroke="#5c6b2e" stroke-width="1.5" opacity="0.3"/>
+          <circle cx="100" cy="80" r="6" fill="#5c6b2e" opacity="0.5"/>
+          <path d="M100 30 L100 130 M50 80 L150 80 M65 45 L135 115 M135 45 L65 115" stroke="#5c6b2e" stroke-width="0.8" opacity="0.2"/>
+        </svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-num">02 / Environment x Policy</div>
+        <h3 class="project-title">Investigating the Impact of Noise Pollution on the Education Achievement Gap</h3>
+        <p class="project-desc">Inspired by my noise absorber project, I expanded the scope to include the impact of noise pollution on the achievement gap to help legislators better understand hidden impacts of seemingly unrelated subjects. I hope to introduce my noise absorber project to policymakers.</p>
+        <div class="project-tags">
+          <span class="project-tag">Policy</span>
+          <span class="project-tag">Noise pollution</span>
+          <span class="project-tag">Education</span>
+        </div>
+        <a href="https://docs.google.com/document/d/1Xj87_W4daWVwLbujzixhef1xKs7OJJz4VJ92TQAAwS4/edit?usp=sharing" target="_blank" class="project-link">Read research →</a>
+      </div>
+    </div>
+
+    <!-- ✏️ PROJECT 3 -->
+    <div class="project-card">
+      <div class="project-card-top sage-bg">
+        <svg viewBox="0 0 200 160" width="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 130 C50 100 70 80 100 60 C130 40 155 38 170 30" stroke="#3d4a1a" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+          <path d="M30 130 C55 115 78 108 100 60" stroke="#3d4a1a" stroke-width="1" opacity="0.25"/>
+          <path d="M30 130 C62 120 88 115 100 60" stroke="#3d4a1a" stroke-width="1" opacity="0.2"/>
+          <circle cx="170" cy="30" r="14" fill="#7a8c3a" opacity="0.5"/>
+          <circle cx="100" cy="60" r="9" fill="#5c6b2e" opacity="0.45"/>
+          <circle cx="30" cy="130" r="6" fill="#3d4a1a" opacity="0.4"/>
+          <circle cx="148" cy="42" r="5" fill="#b5c074" opacity="0.5"/>
+          <circle cx="65" cy="95" r="4" fill="#8fa86e" opacity="0.45"/>
+        </svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-num">03 / Soft Robotics</div>
+        <h3 class="project-title">Spider-inspired Robotic Leg</h3>
+        <p class="project-desc">Summer project at the MIT Media Lab @Taipei Tech investigating how spider leg actuation can guide robotic joints design.</p>
+        <div class="project-tags">
+          <span class="project-tag">Materials</span>
+          <span class="project-tag">Soft robotics</span>
+          <span class="project-tag">Prototyping</span>
+        </div>
+        <a href="prototypes.html" class="project-link">Explore study →</a>
+      </div>
+    </div>
+
+ <div class="project-card">
+  <div class="project-card-top" style="background: #c9d4b0;">
+    <svg viewBox="0 0 200 160" width="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="20" y1="130" x2="180" y2="130" stroke="#3d4a1a" stroke-width="1.5" opacity="0.4"/>
+      <rect x="30" y="70" width="22" height="60" fill="#5c6b2e" opacity="0.5"/>
+      <rect x="33" y="76" width="5" height="5" fill="#3d4a1a" opacity="0.3"/>
+      <rect x="41" y="76" width="5" height="5" fill="#3d4a1a" opacity="0.3"/>
+      <rect x="33" y="86" width="5" height="5" fill="#3d4a1a" opacity="0.3"/>
+      <rect x="41" y="86" width="5" height="5" fill="#3d4a1a" opacity="0.3"/>
+      <rect x="33" y="96" width="5" height="5" fill="#3d4a1a" opacity="0.3"/>
+      <rect x="41" y="96" width="5" height="5" fill="#3d4a1a" opacity="0.3"/>
+      <rect x="58" y="88" width="28" height="42" fill="#7a8c3a" opacity="0.55"/>
+      <path d="M58 88 Q72 75 86 88 Z" fill="#7a8c3a" opacity="0.55"/>
+      <rect x="62" y="94" width="6" height="6" fill="#3d4a1a" opacity="0.3"/>
+      <rect x="72" y="94" width="6" height="6" fill="#3d4a1a" opacity="0.3"/>
+      <rect x="92" y="50" width="26" height="80" fill="#5c6b2e" opacity="0.6"/>
+      <path d="M92 130 C88 115 94 105 90 90 C87 78 92 65 90 52" stroke="#b5c074" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+      <rect x="124" y="100" width="32" height="30" fill="#8fa86e" opacity="0.5"/>
+      <rect x="124" y="94" width="32" height="8" fill="#7a8c3a" opacity="0.6"/>
+      <rect x="162" y="82" width="14" height="48" fill="#5c6b2e" opacity="0.45"/>
+      <path d="M162 82 L169 68 L176 82 Z" fill="#5c6b2e" opacity="0.45"/>
+      <circle cx="52" cy="126" r="8" fill="#7a8c3a" opacity="0.6"/>
+      <circle cx="115" cy="124" r="6" fill="#5c6b2e" opacity="0.55"/>
+      <circle cx="158" cy="38" r="10" stroke="#b5c074" stroke-width="1.5" opacity="0.5"/>
+      <circle cx="158" cy="38" r="5" fill="#b5c074" opacity="0.3"/>
+    </svg>
+  </div>
+  <div class="project-card-body">
+    <div class="project-num">04 / Urban Design</div>
+    <h3 class="project-title">Fictional city</h3>
+    <p class="project-desc">Built a fictional city model for my AP Lit senior project.</p>
+    <div class="project-tags">
+      <span class="project-tag">Urban design</span>
+      <span class="project-tag">World building</span>
+      <span class="project-tag">Cities</span>
+    </div>
+    <a href="fictional city.html" class="project-link">Explore project →</a>
+  </div>
+</div>
+
+<div class="project-card">
+  <div class="project-card-top" style="background: #b8c4a0;">
+    <svg viewBox="0 0 200 160" width="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="40" y1="135" x2="160" y2="135" stroke="#3d4a1a" stroke-width="1.5" opacity="0.4"/>
+
+      <rect x="85" y="120" width="30" height="15" rx="2" fill="#5c6b2e" opacity="0.5"/>
+      <rect x="90" y="110" width="20" height="10" fill="#3d4a1a" opacity="0.3"/>
+
+      <rect x="75" y="75" width="50" height="40" rx="3" fill="#7a8c3a" opacity="0.6"/>
+      <rect x="82" y="82" width="12" height="12" fill="#3d4a1a" opacity="0.2"/> <circle cx="105" cy="85" r="3" fill="#3d4a1a" opacity="0.3"/> <circle cx="115" cy="85" r="3" fill="#3d4a1a" opacity="0.3"/> <rect x="85" y="55" width="30" height="20" rx="5" fill="#5c6b2e" opacity="0.7"/>
+      <circle cx="100" cy="65" r="5" fill="#3d4a1a" opacity="0.4"/> <line x1="100" y1="55" x2="100" y2="45" stroke="#3d4a1a" stroke-width="1.5" opacity="0.6"/> <circle cx="100" cy="43" r="2" fill="#b5c074" opacity="0.8"/> <path d="M75 85 Q60 85 55 105" stroke="#5c6b2e" stroke-width="4" stroke-linecap="round" opacity="0.5"/> <path d="M125 85 Q140 85 145 105" stroke="#5c6b2e" stroke-width="4" stroke-linecap="round" opacity="0.5"/> <circle cx="50" cy="50" r="12" stroke="#3d4a1a" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.3"/>
+      <circle cx="150" cy="70" r="10" stroke="#3d4a1a" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.2"/>
+      
+      <line x1="140" y1="40" x2="145" y2="35" stroke="#b5c074" stroke-width="1.5" opacity="0.6"/>
+      <line x1="150" y1="45" x2="158" y2="45" stroke="#b5c074" stroke-width="1.5" opacity="0.6"/>
+    </svg>
+  </div>
+  <div class="project-card-body">
+    <div class="project-num">05 / Engineering</div>
+    <h3 class="project-title">FRC</h3>
+    <p class="project-desc">I've participated in the FIRST Robotics Competition (FRC) all four years of high school, and have made some pretty cool robots during that time.</p>
+    <div class="project-tags">
+      <span class="project-tag">Engineering</span>
+      <span class="project-tag">Robotics</span>
+      <span class="project-tag">STEM</span>
+    </div>
+    <a href="frc.html" class="project-link">Explore robots →</a>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0.06;" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <path d="M600 500 C600 350 560 280 530 200 C500 120 510 60 530 10" stroke="#f5f2eb" stroke-width="3"/>
+    <path d="M530 300 C450 250 380 240 330 210 C380 200 455 220 528 290 Z" fill="#f5f2eb"/>
+    <path d="M528 200 C590 155 650 145 700 120 C655 145 595 158 530 198 Z" fill="#f5f2eb"/>
+    <path d="M100 400 C150 340 200 320 240 290 C200 325 155 345 102 398 Z" fill="#f5f2eb"/>
+    <path d="M1050 350 C1000 295 960 280 930 255 C960 272 1002 292 1052 348 Z" fill="#f5f2eb"/>
+  </svg>
+  
+  <div class="contact-inner">
+    <div class="contact-label">Contact</div>
+    
+    <h2 class="contact-title">Let's grow<br><em>something together</em></h2>
+    
+    <p class="contact-sub">Open to research collaborations, design projects, and conversations about the natural world.</p>
+    
+    <div class="contact-links">
+      <a href="mailto:wushannon0813@gmail.com" class="contact-link primary-link">Email →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ✏️ Edit footer -->
+<footer>
+  <span class="footer-copy">© 2026 Shannon Wu. All rights reserved.</span>
+  <span class="footer-tagline">Inspired by nature, built for the future.</span>
+</footer>
+
+</body>
+</html>
