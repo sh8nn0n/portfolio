@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRC Robotics — Shannon Wu</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f2eb;
+    --bg2: #ede9df;
+    --surface: #f9f7f2;
+    --border: #cdc9b8;
+    --olive: #5c6b2e;
+    --olive-dark: #3d4a1a;
+    --olive-mid: #7a8c3a;
+    --olive-light: #b5c074;
+    --olive-pale: #dde4c0;
+    --sage: #8fa86e;
+    --cream: #f5f2eb;
+    --text: #2a2e1a;
+    --muted: #6b7050;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(245,242,235,0.95);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--olive-dark);
+    text-decoration: none;
+  }
+
+  .back-link {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--olive); }
+
+  .page-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 6rem 4rem 8rem;
+  }
+
+  .page-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .page-eyebrow::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--sage);
+    display: block;
+  }
+
+  .page-title {
+    font-family: var(--serif);
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: var(--olive-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .page-title em {
+    font-style: italic;
+    color: var(--olive-mid);
+  }
+
+  .page-subtitle {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    border-left: 2px solid var(--olive-pale);
+    padding-left: 1.5rem;
+    margin-bottom: 4rem;
+    max-width: 520px;
+    line-height: 1.8;
+  }
+
+  .divider {
+    width: 48px;
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 4rem;
+  }
+
+  .image-block {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+    background: var(--bg2);
+  }
+
+  .image-block img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    aspect-ratio: 16/10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: var(--olive-pale);
+  }
+
+  .image-placeholder svg { opacity: 0.4; }
+
+  .image-placeholder p {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: 0.7;
+  }
+
+  .image-caption {
+    font-family: var(--serif);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  /* Styling for the embedded Figma frames */
+  .embed-container {
+    margin: 2rem 0 4rem;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .embed-container iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+    display: block;
+  }
+
+  .project-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+
+  .meta-cell {
+    background: var(--surface);
+    padding: 1.5rem;
+  }
+
+  .meta-label {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.5rem;
+  }
+
+  .meta-value {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--olive-dark);
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 4rem;
+  }
+
+  .chip {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 1rem;
+    background: var(--olive-pale);
+    color: var(--olive-dark);
+    border-radius: 50px;
+    border: 1px solid var(--olive-light);
+  }
+
+  /* Next Project / Illustration Section */
+  .next-project-section {
+    margin-top: 6rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  .section-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--olive-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-desc {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 600px;
+    margin-bottom: 2rem;
+  }
+
+  .robot-illustration {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .footer-copy {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+  }
+
+  .footer-tagline {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted);
+    opacity: 0.6;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .page-content { padding: 4rem 1.5rem 6rem; }
+    .project-meta { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="shannon-portfolio.html" class="nav-logo">Shannon Wu</a>
+  <a href="shannon-portfolio.html" class="back-link">← Back to portfolio</a>
+</nav>
+
+<div class="page-content">
+
+  <div class="page-eyebrow">05 / Engineering</div>
+  <h1 class="page-title"><em>FIRST Robotics Competition</em></h1>
+  <p class="page-subtitle">
+      Just a couple of high schoolers building hundred-pound robots.
+  </p>
+
+  <div class="divider"></div>
+
+  <div class="image-block">
+    <img src="dcmp bot.png" alt="FRC Competition Robot"
+      onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 48 48\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><rect x=\'8\' y=\'12\' width=\'32\' height=\'24\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><path d=\'M16 12V8H32V12\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><circle cx=\'14\' cy=\'36\' r=\'4\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><circle cx=\'34\' cy=\'36\' r=\'4\' stroke=\'#5c6b2e\' stroke-width=\'2\'/></svg><p>Add Robot Photo Here</p></div>'">
+  </div>
+  <p class="image-caption">2026 Competition Robot | Appa</p>
+
+    <div class="image-block">
+    <img src="ccr bot.JPG" alt="FRC Competition Robot"
+      onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 48 48\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><rect x=\'8\' y=\'12\' width=\'32\' height=\'24\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><path d=\'M16 12V8H32V12\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><circle cx=\'14\' cy=\'36\' r=\'4\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><circle cx=\'34\' cy=\'36\' r=\'4\' stroke=\'#5c6b2e\' stroke-width=\'2\'/></svg><p>Add Robot Photo Here</p></div>'">
+  </div>
+  <p class="image-caption">2025 Competition Robot | Nessie</p>
+
+  <div class="image-block">
+    <img src="aze bot.PNG" alt="FRC Competition Robot"
+      onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 48 48\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><rect x=\'8\' y=\'12\' width=\'32\' height=\'24\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><path d=\'M16 12V8H32V12\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><circle cx=\'14\' cy=\'36\' r=\'4\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><circle cx=\'34\' cy=\'36\' r=\'4\' stroke=\'#5c6b2e\' stroke-width=\'2\'/></svg><p>Add Robot Photo Here</p></div>'">
+  </div>
+  <p class="image-caption">2024 Competition Robot | Flamin' Hot</p>
+
+  <div class="image-block">
+    <img src="mbr bot.png" alt="FRC Competition Robot"
+      onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 48 48\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><rect x=\'8\' y=\'12\' width=\'32\' height=\'24\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><path d=\'M16 12V8H32V12\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><circle cx=\'14\' cy=\'36\' r=\'4\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><circle cx=\'34\' cy=\'36\' r=\'4\' stroke=\'#5c6b2e\' stroke-width=\'2\'/></svg><p>Add Robot Photo Here</p></div>'">
+  </div>
+  <p class="image-caption">2023 Competition Robot | Sun Tzu</p>
+
+
+  <div class="project-meta">
+    <div class="meta-cell">
+      <div class="meta-label">Team</div>
+      <div class="meta-value">FRC Team 670</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Role</div>
+      <div class="meta-value">Mechanical Design, Fabrication, and Logistics Lead</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Duration</div>
+      <div class="meta-value">2022 — 2026</div>
+    </div>
+  </div>
+
+ 
+    <!--
+  <div class="next-project-section">
+    <div class="section-eyebrow">Design Process</div>
+    <h2 class="section-title">Mechanism <em>Deep Dive</em></h2>
+    <p class="section-desc">
+      Exploration of our 4-bar linkage system and swerve drive optimization. Detailed CAD and testing logs can be found below.
+    </p>
+
+    <div class="robot-illustration">
+      <svg viewBox="0 0 320 260" width="280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 200 L300 200" stroke="#6b5c3e" stroke-width="2" opacity="0.4"/>
+        
+        <rect x="60" y="140" width="200" height="40" rx="2" fill="#7a8c3a" opacity="0.4"/>
+        
+        <circle cx="85" cy="185" r="15" stroke="#3d4a1a" stroke-width="2" opacity="0.6"/>
+        <circle cx="85" cy="185" r="5" fill="#3d4a1a" opacity="0.3"/>
+        <circle cx="235" cy="185" r="15" stroke="#3d4a1a" stroke-width="2" opacity="0.6"/>
+        <circle cx="235" cy="185" r="5" fill="#3d4a1a" opacity="0.3"/>
+        
+        <rect x="100" y="60" width="15" height="80" fill="#5c6b2e" opacity="0.6"/>
+        <path d="M115 80 L220 100" stroke="#5c6b2e" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
+        
+        <circle cx="260" cy="60" r="20" stroke="#8fa86e" stroke-width="1" stroke-dasharray="4 2" opacity="0.5"/>
+        <circle cx="285" cy="85" r="15" stroke="#8fa86e" stroke-width="1" stroke-dasharray="4 2" opacity="0.5"/>
+        
+        <line x1="110" y1="50" x2="110" y2="20" stroke="#b5c074" stroke-width="1" opacity="0.4"/>
+        <path d="M110 20 L140 20" stroke="#b5c074" stroke-width="1" opacity="0.4" stroke-dasharray="2 2"/>
+        <text x="145" y="25" fill="#5c6b2e" font-family="sans-serif" font-size="10" opacity="0.5">Vmax: 14ft/s</text>
+      </svg>
+    </div>   
+    -->
+  </div>
+<!--
+  <div class="project-tags">
+    <span class="chip">Mechanical Engineering</span>
+    <span class="chip">Onshape/Fusion 360</span>
+    <span class="chip">Rapid Prototyping</span>
+    <span class="chip">Systems Integration</span>
+  </div>
+
+-->
+  
+
+</div>
+
+<footer>
+  <span class="footer-copy">© 2026 Shannon Wu</span>
+  <span class="footer-tagline">Inspired by nature. Built for the future.</span>
+</footer>
+
+</body>
+</html>

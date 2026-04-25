@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pomelo Noise Absorber — Shannon Wu</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f2eb;
+    --bg2: #ede9df;
+    --surface: #f9f7f2;
+    --border: #cdc9b8;
+    --olive: #5c6b2e;
+    --olive-dark: #3d4a1a;
+    --olive-mid: #7a8c3a;
+    --olive-light: #b5c074;
+    --olive-pale: #dde4c0;
+    --sage: #8fa86e;
+    --cream: #f5f2eb;
+    --text: #2a2e1a;
+    --muted: #6b7050;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(245,242,235,0.95);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--olive-dark);
+    text-decoration: none;
+  }
+
+  .back-link {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .back-link:hover { color: var(--olive); }
+
+  .page-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 6rem 4rem 8rem;
+  }
+
+  .page-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .page-eyebrow::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--sage);
+  }
+
+  .page-title {
+    font-family: var(--serif);
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--olive-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .page-title em { font-style: italic; color: var(--olive-mid); }
+
+  .page-subtitle {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-style: italic;
+    color: var(--muted);
+    border-left: 2px solid var(--olive-pale);
+    padding-left: 1.5rem;
+    margin-bottom: 4rem;
+    max-width: 550px;
+  }
+
+  .divider { width: 48px; height: 1px; background: var(--border); margin-bottom: 4rem; }
+
+  .image-block {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+    background: var(--bg2);
+  }
+
+  .image-block img { width: 100%; display: block; }
+
+  .image-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--olive-pale);
+  }
+
+  .image-caption {
+    font-family: var(--serif);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .project-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+
+  .meta-cell { background: var(--surface); padding: 1.5rem; }
+  .meta-label { font-family: var(--sans); font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--sage); margin-bottom: 0.5rem; }
+  .meta-value { font-family: var(--serif); font-size: 17px; color: var(--olive-dark); }
+
+  /* Diagram Section */
+  .diagram-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 4rem;
+  }
+
+  .diagram-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-top: 2rem;
+  }
+
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 4rem; }
+  .chip { font-family: var(--sans); font-size: 11px; padding: 0.4rem 1rem; background: var(--olive-pale); color: var(--olive-dark); border-radius: 50px; border: 1px solid var(--olive-light); }
+
+  footer { border-top: 1px solid var(--border); padding: 2rem 4rem; display: flex; justify-content: space-between; max-width: 900px; margin: 0 auto; }
+  .footer-copy { font-family: var(--sans); font-size: 11px; color: var(--muted); opacity: 0.7; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .page-content { padding: 4rem 1.5rem 6rem; }
+    .project-meta { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="shannon-portfolio.html" class="nav-logo">Shannon Wu</a>
+  <a href="shannon-portfolio.html" class="back-link">← Back to portfolio</a>
+</nav>
+
+<div class="page-content">
+
+  <div class="page-eyebrow">01 / Biomimicry</div>
+  <h1 class="page-title"><em>Pomelo Fruit-Inspired</em> Noise Absorber</h1>
+  <p class="page-subtitle">
+    Mimicking the hierarchical structure of a pomelo fruit peel to create a passive acoustic material.
+  </p>
+
+<p style="margin-bottom: 2rem; color: var(--text);">
+  One of my main projects I worked on in high school was this idea that mimicking the hierarchical structure of a pomelo fruit peel can help attenuate noise.
+  I grew up in the noisy city of Taipei, but while everyone else accepted the constant roar of motorcycles, I couldn’t ignore it. However, conventional noise absorbers were bulky and expensive, so I was curious whether there was a lightweight and cheaper alternative.
+A pomelo fruit inspired my design for a tenth-grade science fair project. After reading a paper about the fruit’s ability to survive thirty-foot drops, I wondered if the same principle could apply to noise absorption. Using Onshape and MATLAB, I prototyped a structure modeled after the pomelo to mitigate sound propagation.
+
+</p>
+
+<p>
+The next summer, I expanded my research beyond natural materials. I studied lattice structures and space-coiling mechanisms, both promising approaches for accessible noise pollution solutions. Inspired by patterns in nature, like the growth rules of plants, I proposed that curtain blinds can adopt materials with a coiled geometry structure to maximize low-frequency absorption. This could serve as a cost-effective alternative to triple-pane windows, which are often unaffordable in redlined neighborhoods, thus improving the living conditions for those residing near highways and railroads.
+Finding the relationship between things that aren’t related in any way, like fruits and noise pollution, opened my eyes to a new world of mechanical engineering. I learned that engineering could be rigid and fluid, structured yet flexible. I’m fascinated by unusual connections like these because I want to design technologies that bridge nature and machinery to improve people’s lives.
+
+
+</p>
+  <div class="divider"></div>
+
+   <div class="image-block">
+    <img src="voronoi.png" alt="Pomelo-inspired structure"
+      onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 48 48\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><path d=\'M24 14V24L30 30\' stroke=\'#5c6b2e\' stroke-width=\'2\' stroke-linecap=\'round\'/></svg><p>Add Prototype Image</p></div>'">
+  </div>
+  <p class="image-caption">Voronoi diagram made in MATLAB to base the CAD structure on.</p>
+
+     <div class="image-block">
+    <img src="cad process.png" alt="Pomelo-inspired structure"
+      onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 48 48\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><path d=\'M24 14V24L30 30\' stroke=\'#5c6b2e\' stroke-width=\'2\' stroke-linecap=\'round\'/></svg><p>Add Prototype Image</p></div>'">
+  </div>
+  <p class="image-caption">CAD process for the first iteration of the noise absorber based on the Voronoi diagram.</p>
+
+  <div class="image-block">
+    <img src="pomelo presentation.png" alt="Pomelo-inspired structure"
+      onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 48 48\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><path d=\'M24 14V24L30 30\' stroke=\'#5c6b2e\' stroke-width=\'2\' stroke-linecap=\'round\'/></svg><p>Add Prototype Image</p></div>'">
+  </div>
+  <p class="image-caption">Science fair trifold @ 2024 SYNOPSYS</p>
+
+  <div class="project-meta">
+    <div class="meta-cell">
+      <div class="meta-label">Focus</div>
+      <div class="meta-value">Acoustics & Biomimicry</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Year</div>
+      <div class="meta-value">2024-Current</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Status</div>
+      <div class="meta-value">Prototyping Phase</div>
+    </div>
+  </div>
+
+  <div class="diagram-container">
+    <svg viewBox="0 0 300 200" width="300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M250 100 C250 150 200 190 150 190 C100 190 50 150 50 100 C50 50 100 10 150 10 C200 10 250 50 250 100" stroke="#3d4a1a" stroke-width="2" opacity="0.3"/>
+      
+      <circle cx="150" cy="100" r="60" fill="#dde4c0" opacity="0.4"/>
+      <path d="M130 80 Q140 70 150 85 T170 80" stroke="#5c6b2e" stroke-width="1.5" opacity="0.6"/>
+      <path d="M125 105 Q145 120 165 100" stroke="#5c6b2e" stroke-width="1.5" opacity="0.6"/>
+      <path d="M140 130 Q155 140 170 125" stroke="#5c6b2e" stroke-width="1.5" opacity="0.4"/>
+      
+      <path d="M10 70 Q30 90 50 70 Q70 50 90 70" stroke="#8fa86e" stroke-width="1" stroke-dasharray="4 4" opacity="0.8"/>
+      <path d="M10 100 Q30 120 50 100 Q70 80 90 100" stroke="#8fa86e" stroke-width="1" stroke-dasharray="4 4" opacity="0.8"/>
+      
+      <circle cx="150" cy="100" r="5" fill="#b5c074" opacity="0.8">
+        <animate attributeName="r" values="3;7;3" dur="3s" repeatCount="indefinite" />
+      </circle>
+    </svg>
+    <div class="diagram-label">Biomimicry</div>
+  </div>
+
+  <p class="section-desc" style="margin-bottom: 4rem; color: var(--text);">
+    By studying the <strong>albedo</strong> (the white spongy part of the pomelo), I discovered the world of lattice structures, and I'm working to better test my designs in college through simulation methods like FEAs.
+  </p>
+
+  <div class="project-tags">
+    <span class="chip">Biomimicry</span>
+    <span class="chip">Sustainable Design</span>
+    <span class="chip">Material Science</span>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-copy">© 2026 Shannon Wu</span>
+  <span class="footer-tagline">Inspired by nature, built for the future.</span>
+</footer>
+
+</body>
+</html>

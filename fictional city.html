@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fictional City — Shannon Wu</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f2eb;
+    --bg2: #ede9df;
+    --surface: #f9f7f2;
+    --border: #cdc9b8;
+    --olive: #5c6b2e;
+    --olive-dark: #3d4a1a;
+    --olive-mid: #7a8c3a;
+    --olive-light: #b5c074;
+    --olive-pale: #dde4c0;
+    --sage: #8fa86e;
+    --cream: #f5f2eb;
+    --text: #2a2e1a;
+    --muted: #6b7050;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(245,242,235,0.95);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--olive-dark);
+    text-decoration: none;
+  }
+
+  .back-link {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--olive); }
+
+  .page-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 6rem 4rem 8rem;
+  }
+
+  .page-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .page-eyebrow::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--sage);
+    display: block;
+  }
+
+  .page-title {
+    font-family: var(--serif);
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: var(--olive-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .page-title em {
+    font-style: italic;
+    color: var(--olive-mid);
+  }
+
+  .page-subtitle {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    border-left: 2px solid var(--olive-pale);
+    padding-left: 1.5rem;
+    margin-bottom: 4rem;
+    max-width: 520px;
+    line-height: 1.8;
+  }
+
+  .divider {
+    width: 48px;
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 4rem;
+  }
+
+  /* ✏️ This is where your image goes */
+  .image-block {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+    background: var(--bg2);
+  }
+
+  .image-block img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Placeholder shown if image is missing */
+  .image-placeholder {
+    width: 100%;
+    aspect-ratio: 16/10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: var(--olive-pale);
+  }
+
+  .image-placeholder svg {
+    opacity: 0.4;
+  }
+
+  .image-placeholder p {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: 0.7;
+  }
+
+  .image-caption {
+    font-family: var(--serif);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .project-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+
+  .meta-cell {
+    background: var(--surface);
+    padding: 1.5rem;
+  }
+
+  .meta-label {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.5rem;
+  }
+
+  .meta-value {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--olive-dark);
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 4rem;
+  }
+
+  .chip {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 1rem;
+    background: var(--olive-pale);
+    color: var(--olive-dark);
+    border-radius: 50px;
+    border: 1px solid var(--olive-light);
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .footer-copy {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+  }
+
+  .footer-tagline {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted);
+    opacity: 0.6;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .page-content { padding: 4rem 1.5rem 6rem; }
+    .project-meta { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="shannon-portfolio.html" class="nav-logo">Shannon Wu</a>
+  <a href="shannon-portfolio.html" class="back-link">← Back to portfolio</a>
+</nav>
+
+<div class="page-content">
+
+  <div class="page-eyebrow">04 / Urban Design</div>
+  <h1 class="page-title"><em>Fictional City</em></h1>
+  <p class="page-subtitle">
+      A city model of my identity.
+  </p>
+
+  <div class="divider"></div>
+
+  <!-- ✏️ REPLACE THIS BLOCK with your actual image -->
+  <!-- To add your image: change "your-image.jpg" to your actual filename -->
+  <!-- e.g. <img src="spider-robot.jpg" alt="Spider-inspired robotic leg prototype"> -->
+  <div class="image-block">
+    <img src="final map base.png" alt="City map"
+      onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 48 48\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><rect x=\'4\' y=\'8\' width=\'40\' height=\'32\' rx=\'4\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><circle cx=\'16\' cy=\'19\' r=\'4\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><path d=\'M4 34 L14 24 L22 32 L30 22 L44 34\' stroke=\'#5c6b2e\' stroke-width=\'2\' stroke-linejoin=\'round\'/></svg><p>Add your image file here</p></div>'">
+  </div>
+  <!-- ✏️ Edit the caption below -->
+  <p class="image-caption">Overall city map of the city| Made with QGIS | April-May 2026 </p>
+  <div style="margin: 2rem 0; border-radius: 12px; overflow: hidden;">
+      <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/design/ibXAInaHiCfNgEBLMBl9UG/Senior-Project?node-id=0-1&embed-host=share"allowfullscreen></iframe>
+  </div>
+
+   <!-- ROKI SECTION -->
+  <div class="roki-section">
+    <div class="section-eyebrow">Featured building</div>
+    <h2 class="section-title">ROKI — <em>the bird friendly building</em></h2>
+    <!-- ✏️ Edit this description -->
+    <p class="section-desc">
+      I entered the 2nd US-China Youth Bird-Friendly City Innovation Challenge with a bird friendly skyscraper design called ROKI. More can be found:
+      <div style="margin: 2rem 0; border-radius: 12px; overflow: hidden;">
+<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/design/gcZwBiNeZrShglLfnMWIgq/bird-house?embed-host=share" allowfullscreen></iframe>    </p>
+
+     <div class="image-block">
+    <img src="ROKI.png" alt="Spider-inspired robotic leg prototype"
+      onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 48 48\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><rect x=\'4\' y=\'8\' width=\'40\' height=\'32\' rx=\'4\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><circle cx=\'16\' cy=\'19\' r=\'4\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><path d=\'M4 34 L14 24 L22 32 L30 22 L44 34\' stroke=\'#5c6b2e\' stroke-width=\'2\' stroke-linejoin=\'round\'/></svg><p>Add your image file here</p></div>'">
+  </div>
+  <!-- ✏️ Edit the caption below -->
+  <p class="image-caption">ROKI model</p>
+
+    <div class="ongoing-badge">
+      <div class="ongoing-dot"></div>
+      Project ongoing...
+    </div>
+  </div>
+
+
+  <div class="project-tags">
+    <span class="chip">Urban design</span>
+    <span class="chip">Geographic Information Systems</span>
+    <span class="chip">Architecture</span>
+    <span class="chip">Biomimicry</span>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-copy">© 2026 Shannon Wu</span>
+  <span class="footer-tagline">Inspired by nature, built for the future.</span>
+</footer>
+
+</body>
+</html>
