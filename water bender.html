@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water bender</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f2eb;
+    --bg2: #ede9df;
+    --surface: #f9f7f2;
+    --border: #cdc9b8;
+    --olive: #5c6b2e;
+    --olive-dark: #3d4a1a;
+    --olive-mid: #7a8c3a;
+    --olive-light: #b5c074;
+    --olive-pale: #dde4c0;
+    --sage: #8fa86e;
+    --cream: #f5f2eb;
+    --text: #2a2e1a;
+    --muted: #6b7050;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(245,242,235,0.95);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--olive-dark);
+    text-decoration: none;
+  }
+
+  .back-link {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--olive); }
+
+  .page-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 6rem 4rem 8rem;
+  }
+
+  .page-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .page-eyebrow::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--sage);
+    display: block;
+  }
+
+  .page-title {
+    font-family: var(--serif);
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: var(--olive-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .page-title em {
+    font-style: italic;
+    color: var(--olive-mid);
+  }
+
+  .page-subtitle {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    border-left: 2px solid var(--olive-pale);
+    padding-left: 1.5rem;
+    margin-bottom: 4rem;
+    max-width: 520px;
+    line-height: 1.8;
+  }
+
+  .divider {
+    width: 48px;
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 4rem;
+  }
+
+  .image-block {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+    background: var(--bg2);
+  }
+
+  .image-block img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    aspect-ratio: 16/10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: var(--olive-pale);
+  }
+
+  .image-placeholder svg { opacity: 0.4; }
+
+  .image-placeholder p {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--olive);
+    opacity: 0.7;
+  }
+
+  .image-caption {
+    font-family: var(--serif);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  /* Styling for the embedded Figma frames */
+  .embed-container {
+    margin: 2rem 0 4rem;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .embed-container iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+    display: block;
+  }
+
+  .project-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+
+  .meta-cell {
+    background: var(--surface);
+    padding: 1.5rem;
+  }
+
+  .meta-label {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.5rem;
+  }
+
+  .meta-value {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--olive-dark);
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 4rem;
+  }
+
+  .chip {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 1rem;
+    background: var(--olive-pale);
+    color: var(--olive-dark);
+    border-radius: 50px;
+    border: 1px solid var(--olive-light);
+  }
+
+  /* Next Project / Illustration Section */
+  .next-project-section {
+    margin-top: 6rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  .section-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--olive-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-desc {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 600px;
+    margin-bottom: 2rem;
+  }
+
+  .robot-illustration {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .footer-copy {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+  }
+
+  .footer-tagline {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted);
+    opacity: 0.6;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .page-content { padding: 4rem 1.5rem 6rem; }
+    .project-meta { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Shannon Wu</a>
+  <a href="index.html" class="back-link">← Back to portfolio</a>
+</nav>
+
+<div class="page-content">
+
+  <div class="page-eyebrow">Blog</div>
+  <h1 class="page-title"><em>The Water Bender Beetle</em></h1>
+  <p class="page-subtitle">
+      How the Darkling Beetle taught us to look at the water crisis differently.
+  </p>
+
+  <div class="divider"></div>
+<p style="margin-bottom: 2rem; color: var(--text);">
+  <p><b>The Problem</b></p>
+  <div style="margin-bottom: 30px;">
+    <p>
+        How do people in dry or coastal regions where there’s little to no rainfall get enough water? Well, in these areas with fog-heavy winds and dense clouds, they use a technique known as fog harvesting.
+    </p>
+    </div>
+<div>
+  <p>
+    <b>
+      Fog harvesting
+    </b>
+    </p>
+  <p>
+    Fog harvesting is when you use a large mesh to capture water droplets from incoming fog, which then trickles the water down to a trough to be used for crop irrigation, reforestation efforts, and hydration (after proper filtration of course). This method is advantageous because it doesn’t require energy to operate and has little environmental impact when installing. It’s easy to install because of so few materials, which minimizes costs (for transporting freshwater to the area) while improving the quality of life for communities who live in remote areas. However, this technology is not reliable because fog is a seasonal resource, and the amount of water harvested can be hard to predict. 
+The Atacama Desert in Chile is one of the driest places on Earth, averaging less than 5mm of rainfall annually, but they get a lot of fog coming in from the Pacific Ocean. Using these fog catchers, they can generate up to 1400 liters of water per year.
+    </p>
+
+    <div class="image-block">
+    <img src="fog harvesting.webp" alt="Fog harvesting"
+      onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 48 48\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><path d=\'M24 14V24L30 30\' stroke=\'#5c6b2e\' stroke-width=\'2\' stroke-linecap=\'round\'/></svg><p>Add Prototype Image</p></div>'">
+    </div>
+
+    <p>
+        To understand why setting up a bunch of nets can work, we have to look at how nature collects fog. If you’re an early riser like me, and you go outside at dawn, you’ll probably see dew on leaves of plants and trees. You might notice that skinnier/narrower leaves have more dew than fatter ones. This is called the “narrow-leaf syndrome,” where due to the leaf’s smaller boundary layer, wind and fog droplets are able to pass through, instead of going around, this barrier easier. There is higher efficiency per unit area, so skinnier leaves can maximize the amount of water collected per square millimeter. As well, because narrow leaves move more against the wind, it has more micro-turbulence, which pulls more fog droplets from the air current. If we translate these principles to the fog collector meshes, this means that the meshes use ultra-thin threads and balance the material density and aerodynamic permeability to maximize efficiency.
+    </p>
+
+<br>
+
+
+</div>
+
+<div>
+
+    <p> <b> The Beetle </b></p>
+    
+    <div class="image-block">
+    <img src="beetle.jpg" alt="Beetle"
+      onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 48 48\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><path d=\'M24 14V24L30 30\' stroke=\'#5c6b2e\' stroke-width=\'2\' stroke-linecap=\'round\'/></svg><p>Add Prototype Image</p></div>'">
+    </div>
+
+    <p>
+        While the current design takes inspiration from leaves, there is another solution that also looks towards nature to solve this problem.
+Namib Desert Darkling beetles (Stenocara) is a creature I’ve been fascinated with lately. How are they surviving in such dry places? Well, scientists observed a very curious behavior from these beetles when fog rolls into the desert. It turns out that they will climb to the top of sand dunes, lift their butt towards the direction of the fog, and wait for the water to roll down their body and into their awaiting mouth. This behavior was first observed in 2001 by Andrew Parker and Chris Lawrence, where they found that the beetle’s ability to collect water is due to microscopic hydrophilic bumps on their shell, which, paired with the waxy valleys that are hydrophobic, collect droplets of water that converge down its body. 
+    </p>
+
+    <div class="image-block">
+    <img src="texture.jpg" alt="Shell texture"
+      onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 48 48\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z\' stroke=\'#5c6b2e\' stroke-width=\'2\'/><path d=\'M24 14V24L30 30\' stroke=\'#5c6b2e\' stroke-width=\'2\' stroke-linecap=\'round\'/></svg><p>Add Prototype Image</p></div>'">
+    </div>
+
+    <p>
+        And this got people thinking (it got me thinking, at least), is this a more efficient way to capture water from the air? It’s certainly interesting if we can replicate its structure and the materials of its shell to create better fog catchers. I think there’s two potential ideas that can be explored. The first one would be to use the hydrophilic/hydrophobic quality of the beetle and translate it to the mesh net, so there would be alternating ridges where water can stick together and trickle down. The second one’s more interesting in my opinion, because it would be mimicking the curve of the shell as well. It can be implemented in dry cities, where much like how the beetle can sense where the fog is coming from, if we position a bunch of artificial shells on top of buildings, they can dynamically shift their positions to maximize the amount of water they can collect every time fog rolls in. The water can help grow fruits and vegetables on top of the buildings and be self-sustaining, which saves resources and money.
+    </p>
+    <p>
+        Anyways, thanks for reading through this blurb, I find beetles to be much more interesting now.
+    </p>
+    <p>
+        -S
+    </p>
+
+</div>
+
+<footer>
+  <span class="footer-copy">© 2026 Shannon Wu</span>
+  <span class="footer-tagline">Inspired by nature, built for the future.</span>
+</footer>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
